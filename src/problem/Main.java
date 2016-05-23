@@ -1,66 +1,64 @@
 package problem;
 
-public class Main {
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Vector;
 
-	static int minimun(int a, int b, int c)
+public class Main 
+{
+
+	
+	public static void knn() throws IOException
 	{
-		int result = Math.min(a, b);
-		result = Math.min(result, c);		
-		return result;
+		//Vector train = Utils.read1D("data/treino.txt");
+		//Vector test = Utils.read1D("data/teste.txt");
+		Vector train = Utils.read3D("data/treino3D.txt");
+		Vector test = Utils.read3D("data/teste3D.txt");
+		Vector y_true = new Vector();
+		Vector y_predicted = new Vector();
+		
+		for(int i=0; i<test.size(); i++)
+		{
+			Vector temporal = (Vector) test.get(i);
+			int class_label_test = (int) temporal.get(0);
+			//double[] vector_test = (double[])temporal.get(1);			
+			double[][] vector_test = (double[][])temporal.get(1);
+			Vector distances = new Vector();
+			Vector all_predicted = new Vector();
+			
+			for(int j=0; j<train.size(); j++)
+			{
+				Vector temporal2 = (Vector) train.get(j);
+				int class_label_train = (int) temporal2.get(0);
+				//double[] vector_train = (double[])temporal2.get(1);
+				double[][] vector_train = (double[][])temporal2.get(1);
+				//double distance = DTW.DTWDistance(vector_test, vector_train);
+				double distance = DTW.DTWDistance3D_v2(vector_test, vector_train);
+				distances.add(distance);
+				all_predicted.add(class_label_train);
+				
+				//System.out.println(distances.indexOf(Collections.min(distances)));	
+			}
+			int index = distances.indexOf(Collections.min(distances));
+			Vector predicted = new Vector();
+			predicted.add(distances.get(index));predicted.add(all_predicted.get(index));
+			System.out.println(predicted);
+			y_true.add(class_label_test);
+			y_predicted.add(predicted.get(1));
+			
+			//System.out.println(i);
+			
+		}
+		System.out.println(Utils.accuracy(y_true, y_predicted));			
 	}
 	
-	static int DTWDistance(int[] array1 , int[] array2)
+	
+	
+	public static void main(String[] args) throws IOException 
 	{
-		int n = array1.length;
-		int m = array2.length;
-		
-		int [][] matrix = new int [n][m] ;
-		
+		//knn();
 	
 		
-		for(int i=1; i<n; i++)			
-		{
-			matrix[i][0] = 99999;
-		}
-		for(int i=1; i<m;i++)
-		{
-			matrix[0][i] = 99999;
-		}
-		
-		matrix[0][0] = 0;
-		
-		for(int i=1; i<n;i++)
-		{
-			for(int j=1; j<m;j++)
-			{
-				int costo = Math.abs(array1[i]-array2[j]);
-				matrix[i][j] = costo + minimun(matrix[i-1][j], matrix[i][j-1], matrix[i-1][j-1]); 
-			}
-		}
-		
-		System.out.println(n);
-		System.out.println(m);
-		
-		for(int i=0; i<n; i++)
-		{
-			for(int j=0;j<m;j++)
-			{
-				System.out.print(matrix[i][j] + " ");
-			}
-			System.out.println();
-		}
-		
-		return matrix[n-1][m-1];
-	}
-	
-	
-	
-	public static void main(String[] args) 
-	{
-		int[] array1 = {1,2,3,4} ;
-		int[] array2 = {1,2,3,4,5};
-		System.out.println(DTWDistance(array1, array2));
-
 	}
 
 }

@@ -1,0 +1,70 @@
+meus resultados:
+r (ou w)     Qtde acertos     Taxa acertos [%]      tempo [s]
+     0                     755                     78,65                   45,30
+     8                     824                     85,03                   48,30
+    20                    816                     85,00                   53,67
+    50                    814                     84,79                   66,42
+    80                    814                     84,79                   73,16
+
+
+
+
+    meus resultados com w (janela) em % e usando o limitador "w := max(w, abs(n-m))" que aparece na Wikipedia. Feito em C/C++ com STL. Rodando em Ruindows 7 com i5 de 1ªgeração, 2 cores com 2 threads cada e 6GB RAM
+r ou w [%]     Qtde acertos     Taxa acertos [%]      tempo [s]
+     0                       755                      78,65                   46,67
+    10                      790                      82,29                   45,49
+    20                      823                      85,73                   49,85
+    50                      814                      84,79                   60,96
+    100                    814                      84,79                   75,4
+
+
+
+------------------------------------------------------------------------------------
+
+Meus resultados mios:
+
+DTW simple:  814 -  0.8479  okkkkkk
+DTW 3D con normalizacion : 605  - 0.752487   okkkkkk
+DTW 3D sin normalizacion: 684  - 0.8507   okkkkkkkkk
+DTW 3D sin normalizacion con media de las 3:  633  - 0.7873    okkkkkk
+
+DTW bandas
+
+--------
+
+
+Class 1NN
+   - 1d
+        ---- train-test : 1D
+        * simple
+        * bandas (porcentaje) 0%  - 5% - 10% - 20% - 50% - 100%
+
+   - 3d 
+   		--- train - test: 3D
+   		* Metodo1 - normalizacion media 0 variance 1
+   		* Metodo2 - sin normalizacion , sumando distancias (x,y,z)
+   		* Metodo3 - media de distancias de x,y,z
+
+
+    True --> simplee
+    False --> bandasss
+
+
+  KNN(bool , double=0)
+      -  load train-test --> 1D
+
+     0 - Metodo1
+     1 - Metodo2
+     2 - Metodo3
+  KNN(int)
+
+
+
+
+    
+
+
+
+
+
+   
