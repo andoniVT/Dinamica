@@ -3,6 +3,7 @@ package problem;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 public class KNN 
 {
@@ -95,20 +96,28 @@ public class KNN
 			int index = distances.indexOf(Collections.min(distances));
 			Vector predicted = new Vector();
 			predicted.add(distances.get(index));predicted.add(all_predicted.get(index));
-			System.out.println(predicted);
+			//System.out.println(predicted);
 			y_true.add(class_label_test);
 			y_predicted.add(predicted.get(1));			
 		}
-		System.out.println(Utils.accuracy(y_true, y_predicted));			
-			
+		System.out.println(Utils.accuracy(y_true, y_predicted));						
 	}
 	 
 	
 	
 	public static void main(String[] args) throws IOException 
 	{
-		KNN test = new KNN(true,0);
-		//test.classify();
+		long time_start, time_end , time;
+		//KNN test = new KNN(true,0);		
+		KNN test = new KNN(2);
+		 time_start = System.currentTimeMillis();
+		test.classify();
+		 time_end = System.currentTimeMillis();
+		 time = time_end-time_start;
+		 System.out.println(time);
+		 System.out.println(TimeUnit.MILLISECONDS.toSeconds(time));
+		 
+		 
 		/*
 		 * double[] A = {1,2,3,4};
 		 * double[] B = {1,2,3,4,5};
@@ -117,8 +126,8 @@ public class KNN
 		 * */
 		
 		
-		KNN test2 = new KNN(2);	
-		test2.classify();
+		//KNN test2 = new KNN(2);	
+		//test2.classify();
 		
 		/*
 		 * double[][] a = {{1,2,3},{4,5,6}, {7,8,9}};
