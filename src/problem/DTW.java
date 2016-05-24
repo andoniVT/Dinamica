@@ -32,9 +32,12 @@ public class DTW
 	}
 	
 	static double DTWDistanceBandas(double[] array1 , double[] array2, double percentage)
-	{
+	{		
 		int m = array1.length;
 		int n = array2.length;
+		
+		double size_band = ((percentage*(Math.min(m, n)-1))/100)+1;
+		
 		double[][] distances = new double[m][n];
 		for(int i=0; i<m; i++)
 		{
@@ -57,27 +60,13 @@ public class DTW
 		{
 			for(int j=1;j<n;j++)
 			{				
-				if(Math.abs(i-(j/S))>percentage)
-				{
+				if(Math.abs(i-(j/S))>size_band)
 					continue;
-				}
+				
 				cost[i][j] = Utils.minimun(cost[i-1][j-1] , cost[i-1][j], cost[i][j-1]) + distances[i][j]; 
 			}
 		}
-		
-				
-		
-		for(int i=0; i<m;i++)
-		{
-			for(int j=0; j<n;j++)
-			{
-				System.out.print(cost[i][j] + " ");
-			}
-			System.out.println("");
-		}
-		
-		
-		return 0;		
+		return cost[m-1][n-1];	
 	}
 	
 	static double DTWDistance3D(double[][] array1 , double[][] array2 , boolean toNormalize)
@@ -136,8 +125,7 @@ public class DTW
 			   if(i==2)
 				   array2_z[j] = array2[j][i];			  
 		   }
-	   }  
-       
+	   }         
 		double distanceX =  DTWDistance(array1_x , array2_x);
 		double distanceY =  DTWDistance(array1_y , array2_y);
 		double distanceZ =  DTWDistance(array1_z , array2_z);		
@@ -161,12 +149,14 @@ public class DTW
 		//System.out.println(DTWDistance3D(a, b, true));
 		//System.out.println(DTWDistance3D(a, b, false));
 		//System.out.println(DTWDistance3D_v2(a, b)) ;
-		double[] A = {7,1,5,4,10,15,3,1,6,12};
-		double[] B = {15,31,2,12,5,9,18,41,3,5,4,10};
 		
-		DTWDistanceBandas(A , B, 3);
-
-
+		//double[] A = {7,1,5,4,10,15,3,1,6,12,5};
+		//double[] B = {15,31,2,12,5,9,18,41,3,5,4,6};
+		
+		double[] A = {0.34722, 0.33333, 0.30556, 0.29167, 0.29167, 0.25, 0.23611, 0.20833, 0.19444, 0.20833, 0.19444, 0.18056, 0.15278, 0.13889, 0.125, 0.15278, 0.23611, 0.26389, 0.30556, 0.36111, 0.40278, 0.44444, 0.45833, 0.48611, 0.5, 0.51389, 0.52778, 0.55556, 0.59722, 0.61111, 0.63889, 0.63889};
+		double[] B = {0.30556, 0.29167, 0.29167, 0.26389, 0.29167, 0.26389, 0.22222, 0.20833, 0.18056, 0.15278, 0.18056, 0.18056, 0.13889, 0.11111, 0.083333, 0.069444, 0.083333, 0.125, 0.19444, 0.22222, 0.26389, 0.30556, 0.36111, 0.375, 0.40278, 0.43056, 0.5, 0.54167, 0.58333, 0.61111, 0.61111, 0.59722, 0.59722}; // 0.59722, 0.59722, 0.56944
+		System.out.println(A.length + " " + B.length);
+		System.out.println(DTWDistanceBandas(A , B, 100));
 	}
 
 }
