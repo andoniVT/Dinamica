@@ -33,7 +33,51 @@ public class DTW
 	
 	static double DTWDistanceBandas(double[] array1 , double[] array2, double percentage)
 	{
-       return 0;		
+		int m = array1.length;
+		int n = array2.length;
+		double[][] distances = new double[m][n];
+		for(int i=0; i<m; i++)
+		{
+			for(int j=0; j<n; j++)
+				distances[i][j] =  Math.pow(array1[i] - array2[j], 2);			
+		}
+		
+		double[][] cost = new double[m][n];
+		cost[0][0] = distances[0][0];
+		
+		for(int i=1; i<n; i++)
+			cost[0][i] = distances[0][i] + cost[0][i-1];
+		
+		for(int i=1; i<m;i++)
+			cost[i][0] = distances[i][0] + cost[i-1][0];
+		
+		double S = (double) n/m;
+		
+		for(int i=1;i<m;i++)
+		{
+			for(int j=1;j<n;j++)
+			{				
+				if(Math.abs(i-(j/S))>percentage)
+				{
+					continue;
+				}
+				cost[i][j] = Utils.minimun(cost[i-1][j-1] , cost[i-1][j], cost[i][j-1]) + distances[i][j]; 
+			}
+		}
+		
+				
+		
+		for(int i=0; i<m;i++)
+		{
+			for(int j=0; j<n;j++)
+			{
+				System.out.print(cost[i][j] + " ");
+			}
+			System.out.println("");
+		}
+		
+		
+		return 0;		
 	}
 	
 	static double DTWDistance3D(double[][] array1 , double[][] array2 , boolean toNormalize)
@@ -109,14 +153,18 @@ public class DTW
 		//double[] B = {1,2,3,4,5};
 		//System.out.println(DTWDistance(A, B));
 		
-		double[][] a = {{1,2,3},{4,5,6}, {7,8,9}};
-		double[][] b = {{5,0,12}, {6,9,1}};
+		//double[][] a = {{1,2,3},{4,5,6}, {7,8,9}};
+		//double[][] b = {{5,0,12}, {6,9,1}};
 		/// 1 4 7   - 5  6
 		/// 2 5 8   - 0  9
 		/// 3 6 9   - 12 1
-		System.out.println(DTWDistance3D(a, b, true));
-		System.out.println(DTWDistance3D(a, b, false));
-		System.out.println(DTWDistance3D_v2(a, b)) ;
+		//System.out.println(DTWDistance3D(a, b, true));
+		//System.out.println(DTWDistance3D(a, b, false));
+		//System.out.println(DTWDistance3D_v2(a, b)) ;
+		double[] A = {7,1,5,4,10,15,3,1,6,12};
+		double[] B = {15,31,2,12,5,9,18,41,3,5,4,10};
+		
+		DTWDistanceBandas(A , B, 3);
 
 
 	}
