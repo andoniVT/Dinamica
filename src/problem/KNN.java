@@ -86,7 +86,7 @@ public class KNN
 					if(this.type)
 						distance = DTW.DTWDistance(vector_test1D, vector_train1D);
 					else
-						distance = DTW.DTWDistanceBandas(vector_test1D, vector_train1D, this.percentage);
+						distance = DTW.DTWDistanceBandas2(vector_test1D, vector_train1D, this.percentage);
 				}
 				
 				distances.add(distance);
@@ -108,8 +108,8 @@ public class KNN
 	public static void main(String[] args) throws IOException 
 	{
 		long time_start, time_end , time;
-		//KNN test = new KNN(true,0);		
-		KNN test = new KNN(2);
+		KNN test = new KNN(false,1);		
+		//KNN test = new KNN(2);
 		 time_start = System.currentTimeMillis();
 		test.classify();
 		 time_end = System.currentTimeMillis();
