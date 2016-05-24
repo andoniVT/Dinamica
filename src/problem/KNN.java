@@ -118,6 +118,7 @@ public class KNN
 		 System.out.println(TimeUnit.MILLISECONDS.toSeconds(time));
 		 
 		 
+		 
 		/*
 		 * double[] A = {1,2,3,4};
 		 * double[] B = {1,2,3,4,5};
