@@ -61,10 +61,29 @@ Class 1NN
 
 
 
+[00:17, 23/5/2016] +55 16 99711-3287: Basicamente para o DTW(Qi,Sj) = j - W <= i <= j + W (sendo Q e S duas series temporais de tamanho i e j).
+W é a constante da "janela", a % é calculada de acordo com o tamanho da serie mais longa. Por exemplo, O Keogh recomenda 10%.
+[00:19, 23/5/2016] +55 16 99711-3287: Mas no caso do Projeto vai ter que testar para as % que o Gustavo especificou
     
 
+meus resultados com w (janela) em % e usando o limitador "w := max(w, abs(n-m))" que aparece na Wikipedia. Feito em C/C++ com STL. Rodando em Ruindows 7 com i5 de 1ªgeração, 2 cores com 2 threads cada e 6GB RAM
+r ou w [%]     Qtde acertos     Taxa acertos [%]      tempo [s]
+     0         755                      78,65                   46,67
+    10         790                      82,29                   45,49
+    20         823                      85,73                   49,85
+    50         814                      84,79                   60,96
+    100        814                      84,79                   75,40
 
-
-
+Agora
+resultados com w (janela) em % e usando o limitador "w := max(w, abs(n-m))" que aparece na Wikipedia. Feito em C/C++ com STL. Rodando em Ruindows 7 com i5 de 1ªgeração, 2 cores com 2 threads cada e 6GB RAM
+    w [%]     Qtde acertos     Taxa acertos [%]      tempo [s]
+     0                  749                       78.02                   45.45
+     1                  749                       78.02                   46.12
+     5                  760                       79.17                   47.60
+     10                781                      81.35                   46.28
+     20                805                      83.85                   48.99
+     50                796                      82.92                   61.86
+     100              794                      82.71                   74.99
 
    
+

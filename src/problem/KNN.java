@@ -108,7 +108,7 @@ public class KNN
 	public static void main(String[] args) throws IOException 
 	{
 		long time_start, time_end , time;
-		KNN test = new KNN(false,1);		
+		KNN test = new KNN(false,0);		
 		//KNN test = new KNN(2);
 		 time_start = System.currentTimeMillis();
 		test.classify();

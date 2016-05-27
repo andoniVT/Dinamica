@@ -82,48 +82,30 @@ public class DTW
 	static double DTWDistanceBandas2(double[] array1 , double[] array2, double w)
 	{		
 		int m = array1.length;
-		int n = array2.length;
-		//double size_band = percentage;
-		//w = Math.max(w, Math.abs(m-n));
-		
+		int n = array2.length;		
 		w = Math.max(m, n)*w/100;
 		w = Math.max(w, Math.abs(m-n));
-		//double size_band = ((percentage*(Math.min(m, n)-1))/100)+1;
-		//System.out.println("size baand" + size_band);
-		
-		double[][] distances = new double[m][n];
-		for(int i=0; i<m; i++)
-		{
-			for(int j=0; j<n; j++)
-				distances[i][j] =  Math.pow(array1[i] - array2[j], 2);			
-		}
-		
 		double[][] cost = new double[m][n];
-		cost[0][0] = distances[0][0];
 		
-		//for(int i=1; i<n; i++)
-		//	cost[0][i] = distances[0][i] + cost[0][i-1];
-		
-		//for(int i=1; i<m;i++)
-		//	cost[i][0] = distances[i][0] + cost[i-1][0];
-		
-		//double S = (double) n/m;
-		
-		for(int i=1;i<m;i++)
+		for(int i=0;i<m;i++)
 		{
-			//for(int j=1;j<n;j++)
-			for(int j=(int) Math.max(1,i-w);j<Math.min(n, i+w);j++)
-			{												
-				cost[i][j] = Utils.minimun(cost[i-1][j-1] , cost[i-1][j], cost[i][j-1]) + distances[i][j]; 
+			for(int j=0;j<n;j++)
+			{
+				cost[i][j] = 9999;
 			}
 		}
-		/*for(int i=0;i<m;i++)
-		{
-			for(int j=0; j<n; j++)
-				System.out.print(cost[i][j]+ " ");
-			System.out.println(" ");
-		}*/
+
+		cost[0][0] = 0;
 		
+		for(int i=1; i<m; i++)
+		{
+			for(int j=(int) Math.max(1, i-w); j<Math.min(n, i+w); j++)
+			{
+				double dist = Math.pow(array1[i]-array2[j], 2) ;
+				cost[i][j] = dist + Utils.minimun(cost[i-1][j-1] , cost[i-1][j], cost[i][j-1]);
+			}
+		}
+		//for(int j=(int) Math.max(1,i-w);j<Math.min(n, i+w);j++)
 		
 		return cost[m-1][n-1];	
 	}
