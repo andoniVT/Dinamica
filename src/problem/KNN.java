@@ -2,6 +2,7 @@ package problem;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Scanner;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
@@ -97,47 +98,63 @@ public class KNN
 			y_true.add(class_label_test);
 			y_predicted.add(predicted.get(1));			
 		}
-		System.out.println(Utils.accuracy(y_true, y_predicted));						
+
+		Vector final_results = Utils.accuracy(y_true, y_predicted);
+		System.out.println("Data size: "+final_results.elementAt(0));
+		System.out.println("Accuracy: "+final_results.elementAt(1));
 	}
 	 
 	
 	
 	public static void main(String[] args) throws IOException 
-	{
-		long time_start, time_end , time;
-		KNN test = new KNN(false,0);		
-		//KNN test = new KNN(2);
-		 time_start = System.currentTimeMillis();
-		 test.classify();
-		 time_end = System.currentTimeMillis();
-		 time = TimeUnit.MILLISECONDS.toSeconds(time_end-time_start);
-		 System.out.println(time);
-		 
+	{		
+		 /*
+		  * KNN test = new KNN(true,0);
+		  * KNN test = new KNN(false,0-10-20-100);
+		  * KNN test = new KNN(0);
+		  * KNN test = new KNN(1);
+		  * KNN test = new KNN(2);
+		  * 
+		  * */
+			long time_start, time_end , time;
+		 	Scanner reader = new Scanner(System.in);
+			System.out.println("Enter an option");
+			String input = reader.nextLine();
+			Vector res = Utils.getInput(input);					
+			if (res.size()==1)
+			{
+				int option = (int) res.elementAt(0);
+				KNN test = new KNN(option);
+				time_start = System.currentTimeMillis();
+				test.classify();
+				time_end = System.currentTimeMillis();
+			}
+			else
+			{
+	            boolean option = (boolean) res.elementAt(0);
+	            double value = (double) res.elementAt(1);
+	            KNN test = new KNN(option,value);
+	            time_start = System.currentTimeMillis();
+	            test.classify();
+	            time_end = System.currentTimeMillis();
+			}
+			time = TimeUnit.MILLISECONDS.toSeconds(time_end-time_start);									
+			System.out.println("Time(s): " + time);
+			
+			
+			
+			
+			
+			
+			
+			
 		 
 		 
 
 		 
 		 
 		 
-		/*
-		 * double[] A = {1,2,3,4};
-		 * double[] B = {1,2,3,4,5};
-		 * 
-		 * System.out.println(DTWDistance(A, B));
-		 * */
 		
-		
-		//KNN test2 = new KNN(2);	
-		//test2.classify();
-		
-		/*
-		 * double[][] a = {{1,2,3},{4,5,6}, {7,8,9}};
-		 * double[][] b = {{5,0,12}, {6,9,1}};
-		 * 
-		 *  System.out.println(DTWDistance3D(a, b, true));
-		 *  System.out.println(DTWDistance3D(a, b, false));
-		 *  System.out.println(DTWDistance3D_v2(a, b)) ;
-		 * */
 	
 
 	}

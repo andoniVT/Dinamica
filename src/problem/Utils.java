@@ -170,38 +170,48 @@ public class Utils
 		return data;
 	}
 	
-	
-	
+	public static Vector getInput(String input)
+	{
+		Vector result = new Vector();
+		String a = "1 0";
+		String b = "1 1 50.0";
+		String c = "3 0";
+		String d = "3 1";
+		String e = "3 2";
+		
+		char type = input.charAt(0);
+		if(type == '1')
+		{		     
+		   char method = input.charAt(2);		   
+		   if(method=='0')
+		   {
+			   result.add(true);
+			   result.add(0.0);
+		   }
+		   else
+		   {
+			   result.add(false);
+			   String value = input.substring(4);
+			   result.add(Double.parseDouble(value));	
+		   }
+		}
+		else
+		{
+			String method = String.valueOf(input.charAt(2));			
+			result.add(Integer.parseInt(method));
+		}
+		
+		
+		return result;
+	}
 	
 	
 	public static void main(String[] args) throws IOException 
 	{
 		
-		 //String datos = readFile("data/treino.txt");
-		 //System.out.println(datos);
-		
-		Vector data = read3D("data/treino3D.txt");		
-		Vector first = (Vector) data.get(395);
-		double[][] a = {{1,2,3},{4,5,6}, {7,8,9}};
-		double[][] b = {{5,0,12}, {6,9,1}};
-		double[][] matrix2 = distance3D(a, b);
-		/*
-		for(int i=0;i<matrix2.length; i++)
-		{
-			for(int j=0;j<matrix2[i].length; j++)
-			{
-				System.out.print(matrix2[i][j] + " ");
-			}
-			System.out.println("");
-		}*/
-		
-		double[] datos = {10,20,34,41, 2};
-		double[] normalized = normalize(datos);
-		for(int i=0; i<normalized.length;i++)
-			System.out.print(normalized[i]+" ");
-		System.out.println(mean(normalized));
-		System.out.println(variance(normalized));
-		
+       Vector res = getInput("3 2");
+       System.out.println(res.elementAt(0));
+       //System.out.println(res.elementAt(1));
 		
 			
 		 
