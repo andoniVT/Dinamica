@@ -86,7 +86,7 @@ public class KNN
 					if(this.type)
 						distance = DTW.DTWDistance(vector_test1D, vector_train1D);
 					else
-						distance = DTW.DTWDistanceBandas2(vector_test1D, vector_train1D, this.percentage);
+						distance = DTW.DTWDistanceBandas(vector_test1D, vector_train1D, this.percentage);
 				}
 				
 				distances.add(distance);

@@ -30,56 +30,8 @@ public class DTW
 		}							
 		return cost[n-1][m-1];
 	}
-	
-	static double DTWDistanceBandas(double[] array1 , double[] array2, double percentage)
-	{		
-		int m = array1.length;
-		int n = array2.length;
-		double size_band = percentage*(Math.max(m, n))/100; 
-		//double size_band = ((percentage*(Math.min(m, n)-1))/100)+1;
-		//System.out.println("size baand" + size_band);
 		
-		double[][] distances = new double[m][n];
-		for(int i=0; i<m; i++)
-		{
-			for(int j=0; j<n; j++)
-				distances[i][j] =  Math.pow(array1[i] - array2[j], 2);			
-		}
-		
-		double[][] cost = new double[m][n];
-		cost[0][0] = distances[0][0];
-		
-		for(int i=1; i<n; i++)
-			cost[0][i] = distances[0][i] + cost[0][i-1];
-		
-		for(int i=1; i<m;i++)
-			cost[i][0] = distances[i][0] + cost[i-1][0];
-		
-		double S = (double) n/m;
-		
-		for(int i=1;i<m;i++)
-		{
-			for(int j=1;j<n;j++)
-			{				
-				if(Math.abs(i-(j/S))>size_band)
-					continue;
-				
-				cost[i][j] = Utils.minimun(cost[i-1][j-1] , cost[i-1][j], cost[i][j-1]) + distances[i][j]; 
-			}
-		}
-		//for(int i=0;i<m;i++)
-		//{
-			//for(int j=0; j<n; j++)
-	//			System.out.print(cost[i][j]+ " ");
-	//		System.out.println(" ");
-	//	}
-		
-		
-		return cost[m-1][n-1];	
-	}
-	
-	
-	static double DTWDistanceBandas2(double[] array1 , double[] array2, double w)
+	static double DTWDistanceBandas(double[] array1 , double[] array2, double w)
 	{		
 		int m = array1.length;
 		int n = array2.length;		
@@ -104,9 +56,7 @@ public class DTW
 				double dist = Math.pow(array1[i]-array2[j], 2) ;
 				cost[i][j] = dist + Utils.minimun(cost[i-1][j-1] , cost[i-1][j], cost[i][j-1]);
 			}
-		}
-		//for(int j=(int) Math.max(1,i-w);j<Math.min(n, i+w);j++)
-		
+		}				
 		return cost[m-1][n-1];	
 	}
 	
@@ -186,23 +136,10 @@ public class DTW
 		//double[][] b = {{5,0,12}, {6,9,1}};
 		/// 1 4 7   - 5  6
 		/// 2 5 8   - 0  9
-		/// 3 6 9   - 12 1
-		//System.out.println(DTWDistance3D(a, b, true));
-		//System.out.println(DTWDistance3D(a, b, false));
-		//System.out.println(DTWDistance3D_v2(a, b)) ;
-		//http://alexminnaar.com/time-series-classification-and-clustering-with-python.html
-		
+		/// 3 6 9   - 12 1				
 		double[] A = {7,1,5,4,10,15,3,1,6,12,5};
-		double[] B = {15,31,2,12,5,9,18,41,3,5,4,6};
-		
-		//double[] A = {0.29167,0.27778,0.25,0.25,0.23611,0.20833,0.18056,0.16667,0.15278,0.15278,0.16667,0.19444,0.22222,0.26389,0.27778,0.30556,0.36111,0.375,0.375,0.375,0.375,0.40278,0.41667,0.43056,0.44444,0.41667,0.40278,0.34722,0.27778,0.22222,0.18056,0.13889,0.125,0.11111,0.15278,0.16667,0.19444,0.25,0.27778,0.36111,0.41667,0.44444,0.45833,0.47222,0.54167,0.55556,0.56944,0.58333,0.58333,0.59722,0.63889,0.65278,0.65278,0.65278,0.63889,0.63889,0.61111,0.5,0.375,0.33333,0.25,0.20833,0.20833,0.19444,0.22222,0.23611,0.23611,0.23611,0.23611,0.23611,0.26389,0.31944,0.45833,0.41667,0.45833,0.47222,0.47222,0.45833,0.43056,0.40278,0.34722,0.29167,0.26389,0.25,0.16667,0.125,0.083333,0.083333,0.13889,0.19444};
-		//double[] B = {0.30556,0.52778, 0.73611}; 
-		System.out.println(A.length + " " + B.length);
-		
-		
-		//System.out.println(DTWDistanceBandas(A , B, Math.max(A.length, B.length)));
-		///w = (std::max(A.size(), B.size())) * (float) w/100.0;
-		System.out.println(DTWDistanceBandas2(A , B, 50));
+		double[] B = {15,31,2,12,5,9,18,41,3,5,4,6};				 		
+		System.out.println(DTWDistanceBandas(A , B, 50));
 		System.out.println(DTWDistance(A , B));
 	}
 
