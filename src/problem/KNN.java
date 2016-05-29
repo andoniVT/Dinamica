@@ -38,8 +38,7 @@ public class KNN
 		this.test = Utils.read3D("data/teste3D.txt");
 		this.method = method;
 	}
-	
-	
+		
 	public void classify()
 	{
 		Vector y_true = new Vector();
@@ -74,29 +73,27 @@ public class KNN
 				double distance = 0;
 				if(dimension) // 3D
 				{
-					if(this.method==0)
+					if(this.method==0) /// Method 1
 						distance = DTW.DTWDistance3D(vector_test3D, vector_train3D, true);
-					if(this.method==1)
+					if(this.method==1) /// Method 2
 						distance = DTW.DTWDistance3D(vector_test3D, vector_train3D, false);
-					if(this.method==2)
+					if(this.method==2) /// Method 3
 						distance = DTW.DTWDistance3D_v2(vector_test3D, vector_train3D);
 				}
 				else  // 1D
 				{
-					if(this.type)
+					if(this.type) /// DTW Simple 
 						distance = DTW.DTWDistance(vector_test1D, vector_train1D);
-					else
+					else   /// DTW Bandas
 						distance = DTW.DTWDistanceBandas(vector_test1D, vector_train1D, this.percentage);
-				}
-				
+				}				
 				distances.add(distance);
 				all_predicted.add(class_label_train);								
 			}
 			
 			int index = distances.indexOf(Collections.min(distances));
 			Vector predicted = new Vector();
-			predicted.add(distances.get(index));predicted.add(all_predicted.get(index));
-			//System.out.println(predicted);
+			predicted.add(distances.get(index));predicted.add(all_predicted.get(index));			
 			y_true.add(class_label_test);
 			y_predicted.add(predicted.get(1));			
 		}
@@ -111,11 +108,14 @@ public class KNN
 		KNN test = new KNN(false,0);		
 		//KNN test = new KNN(2);
 		 time_start = System.currentTimeMillis();
-		test.classify();
+		 test.classify();
 		 time_end = System.currentTimeMillis();
-		 time = time_end-time_start;
+		 time = TimeUnit.MILLISECONDS.toSeconds(time_end-time_start);
 		 System.out.println(time);
-		 System.out.println(TimeUnit.MILLISECONDS.toSeconds(time));
+		 
+		 
+		 
+
 		 
 		 
 		 
